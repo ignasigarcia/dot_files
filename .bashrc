@@ -41,7 +41,8 @@ function set_prompt ()
 
 	set_bash_colors
 	
-	TERM_PROMPT="$white\t$white $h_green\u$black@$h_red\h{$REALNAME}$h_red:$black\W$white"
+	#TERM_PROMPT="$white\t$white $h_green\u$black@$h_red\h{$REALNAME}$h_red:$black\W$white"
+	TERM_PROMPT="$h_green\W$white"
 
 	case 'id -u' in
 		0) PS1="${TERM_PROMPT} $red\#$white ";;
@@ -72,7 +73,7 @@ function set_aliases ()
 
 	# VIM
 	alias vim="vim -T dtterm"
-  alias generate_tags="ctags -R -h \".php\" -R --exclude=\"\.svn\" --totals=yes --tag-relative=yes --PHP-kinds=+cf --regex-PHP='/abstract class ([^ ]*)/\1/c/' --regex-PHP='/interface ([^ ]*)/\1/c/' --regex-PHP='/(public |static |abstract |protected |private )+function ([^ (]*)/\2/f/'"
+  alias generate_tags="rm tags && ctags -R --languages=php ."
 
 	# DIRECTORIES
 	alias pdev="cd /sites/personaldev/igarcia"
@@ -216,7 +217,6 @@ fi
 
 function svnup()
 {
-          svn up
-                  ~aluneburg/bin/exemplarOverrides -p ${PWD##*/}
+          svn up ~aluneburg/bin/exemplarOverrides -p ${PWD##*/}
 }
 
