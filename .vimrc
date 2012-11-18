@@ -94,7 +94,7 @@ let mapleader = ","
 " save changes
 map <leader>w :w<CR>
 
-" save changes and clean cache
+" save changes and clean symfony cache
 map <leader>sc :w<CR>:!./symfony cc<CR><CR>
 
 " map ,f to display all lines with keyword under cursor and ask which one to jump to
@@ -130,10 +130,5 @@ map <C-h> :tabprevious<CR>
 autocmd FileType php inoremap <C-o> <ESC>:call PhpDocSingle()<CR>i
 autocmd FileType php nnoremap <C-o> :call PhpDocSingle()<CR>
 autocmd FileType php vnoremap <C-o> :call PhpDocRange()<CR> 
-
-" CtrlP plugin
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-" Tells CrtlP to always start looking from the initial path
-let g:ctrlp_working_path_mode = ''
 
 set paste
