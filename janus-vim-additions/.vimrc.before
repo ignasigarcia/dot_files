@@ -1,9 +1,0 @@
-let mapleader = ","
-set mouse=n
-map ,w :w<CR>
-map <c-t> <c-t>
-
-map <C-l> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-
-" Ack search term
-nmap <leader>z :Ack <cword><CR>

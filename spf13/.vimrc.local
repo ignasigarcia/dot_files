@@ -1,8 +1,0 @@
-colorscheme solarized
-set nocursorline                  " highlight current line
-set listchars=
-set scrolloff=0                 " minimum lines to keep above and below cursor
-set scrolljump=0                " lines to scroll when cursor leaves screen
-set nolist
-" Reset C-U to go up the page
-noremap <C-U> <C-U>
