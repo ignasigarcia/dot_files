@@ -41,8 +41,11 @@ function set_prompt ()
 
 	set_bash_colors
 	
+  # Old prompt
 	#TERM_PROMPT="$white\t$white $h_green\u$black@$h_red\h{$REALNAME}$h_red:$black\W$white"
-	TERM_PROMPT="$h_green\W$white"
+
+  # New prompt
+	TERM_PROMPT="$h_red$REALNAME $h_green\W"
 
 	case 'id -u' in
 		0) PS1="${TERM_PROMPT} $red\#$white ";;
