@@ -86,9 +86,6 @@ function set_aliases ()
 
 	# SYMFONY
 	alias sf='./symfony'
-
-  #PRM
-  alias prm="prm -p6umazu_"
 }
 
 SVN="svn://subversion/symfony/"
