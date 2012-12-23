@@ -24,10 +24,6 @@ set ignorecase
 " Show line number
 set number
 
-" Indent
-set smartindent
-set autoindent
-
 " Always show status line, even for one window
 set laststatus=2
 
@@ -133,3 +129,7 @@ autocmd FileType php vnoremap <C-o> :call PhpDocRange()<CR>
 
 set paste
 set backspace=2
+
+" Indent
+set smartindent
+set autoindent
