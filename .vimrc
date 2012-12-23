@@ -132,3 +132,4 @@ autocmd FileType php nnoremap <C-o> :call PhpDocSingle()<CR>
 autocmd FileType php vnoremap <C-o> :call PhpDocRange()<CR> 
 
 set paste
+set backspace=2
