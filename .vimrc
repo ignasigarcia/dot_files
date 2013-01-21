@@ -133,3 +133,6 @@ set backspace=2
 " Indent
 set smartindent
 set autoindent
+
+" Adds Sass support for OS X
+au BufRead,BufNewFile *.scss set filetype=scss
