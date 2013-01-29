@@ -61,7 +61,7 @@ endif
 runtime! syntax/html.vim
 unlet! b:current_syntax
 " HTML syntax file turns on spelling for all top level words, we attempt to turn off
-syntax spell default
+" syntax spell default
 
 " Set sync method if none declared
 if !exists("php_sync_method")
