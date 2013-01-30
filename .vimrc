@@ -115,9 +115,6 @@ nmap <leader>a :Ack <cword><CR>
 " NERDTree toggle
 map <leader>n :NERDTreeToggle<CR>
 
-" Show and go to latest buffer?
-nnoremap <Tab><Tab> :buffers<CR>:buffer<Space>
-
 " Cycle through buffers
 map <C-l> :tabnext<CR>
 map <C-h> :tabprevious<CR>
