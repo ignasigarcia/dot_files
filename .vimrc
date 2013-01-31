@@ -1,5 +1,21 @@
-"Pathogen
-execute pathogen#infect()
+" Vundle start
+set nocompatible               " be iMproved
+filetype off                   " required!
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+" required! 
+Bundle 'gmarik/vundle'
+
+" My Bundles here:
+"
+" original repos on github
+Bundle 'tpope/vim-surround'
+Bundle 'scrooloose/syntastic'
+
+" Vundle end
 
 " Turn syntax highlighting on
 syntax on
@@ -110,6 +126,9 @@ vnoremap > >gv
 " Open tags in a new tab
 map <leader>o :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 
+"Opens tag in vertical split
+map <leader>so :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+
 " Setup ack
 let g:ackprg="ack -H --nocolor --nogroup --column"
 
@@ -136,3 +155,6 @@ set autoindent
 
 " Adds Sass support for OS X
 au BufRead,BufNewFile *.scss set filetype=scss
+
+" Disable Syntastic by default
+autocmd VimEnter * SyntasticToggleMode
