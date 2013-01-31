@@ -1,6 +1,10 @@
+"Pathogen
+execute pathogen#infect()
+
 " Turn syntax highlighting on
 syntax on
 
+filetype plugin indent on
 filetype plugin on
 
 " Write contents of the file, if it has been modified, on buffer exit
@@ -124,7 +128,6 @@ autocmd FileType php inoremap <C-o> <ESC>:call PhpDocSingle()<CR>i
 autocmd FileType php nnoremap <C-o> :call PhpDocSingle()<CR>
 autocmd FileType php vnoremap <C-o> :call PhpDocRange()<CR> 
 
-set paste
 set backspace=2
 
 " Indent
