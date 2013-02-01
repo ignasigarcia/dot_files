@@ -124,10 +124,10 @@ vnoremap < <gv
 vnoremap > >gv 
 
 " Open tags in a new tab
-map <leader>o :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+map <leader>d :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 
 "Opens tag in vertical split
-map <leader>so :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+map <leader>ds :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 " Setup ack
 let g:ackprg="ack -H --nocolor --nogroup --column"

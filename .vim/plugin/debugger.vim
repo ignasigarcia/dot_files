@@ -165,7 +165,7 @@ map <F4> :python debugger_command('step_out')<cr>
 " map <S-F5> :python debugger_quit()<cr>
 map ,dq :python debugger_quit()<cr>
 " map <F5> :python debugger_run()<cr>
-map ,d :python debugger_run()<cr>
+map ,de :python debugger_run()<cr>
 
 map <F10> :python debugger_watch_input("eval", '<cword>')<cr>A<cr>
 map <F11> :python debugger_context()<cr>
