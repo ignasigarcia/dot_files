@@ -124,16 +124,16 @@ vnoremap < <gv
 vnoremap > >gv 
 
 " Open tags in a new tab
-map <leader>f :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+map <leader>d :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 
 "Opens tag in vertical split
-map <leader>fs :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+map <leader>ds :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 " Setup ack
 let g:ackprg="ack -H --nocolor --nogroup --column"
 
 " Ack search term
-nmap <leader>a :Ack <cword><CR>
+nmap <leader>f :Ack <cword><CR>
 
 " NERDTree toggle
 map <leader>n :NERDTreeToggle<CR>
