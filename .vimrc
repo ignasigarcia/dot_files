@@ -114,7 +114,7 @@ map <leader>w :w<CR>
 map <leader>sc :w<CR>:!./symfony cc<CR><CR>
 
 " map ,f to display all lines with keyword under cursor and ask which one to jump to
-nmap <leader>f [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+"nmap <leader>f [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 
 " page down with <Space>
 nmap <Space> <PageDown>
@@ -124,10 +124,10 @@ vnoremap < <gv
 vnoremap > >gv 
 
 " Open tags in a new tab
-map <leader>d :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+map <leader>f :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 
 "Opens tag in vertical split
-map <leader>ds :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+map <leader>fs :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 " Setup ack
 let g:ackprg="ack -H --nocolor --nogroup --column"
