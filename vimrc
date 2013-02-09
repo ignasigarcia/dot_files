@@ -162,3 +162,7 @@ autocmd VimEnter * SyntasticToggleMode
 " TagLists plugin
 let Tlist_Use_Right_Window = 1
 map <leader>t :Tlist<CR>
+
+" Run current php file
+command PHPExecute execute "!php %"
+map <leader>r :PHPExecute<CR>
