@@ -62,6 +62,7 @@ function set_aliases ()
 	alias externals="svn pe svn:externals"
   alias sdiff="svn diff | less"
   alias sst="svn st | less"
+  alias sstn="svn st | grep -v X | less"
   alias slog="svn log | less"
 
   # ACK
