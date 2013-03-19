@@ -77,7 +77,7 @@ function set_aliases ()
 
 	# VIM
 	alias vim="vim -T dtterm"
-  alias generate_tags="rm tags && ctags -R --languages=php ."
+  alias generate_tags="touch tags && rm tags && ctags -R --languages=php ."
 
 	# DIRECTORIES
 	alias pdev="cd /sites/personaldev/igarcia"
