@@ -58,6 +58,9 @@ function set_prompt ()
 function set_aliases ()
 {
 
+  # CTAGS
+  alias ctags="/home/igarcia/bin/ctags"
+
   # SVN
 	alias externals="svn pe svn:externals"
   alias sdiff="svn diff | less"
