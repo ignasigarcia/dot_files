@@ -138,7 +138,7 @@ nmap <leader>f :Ack <cword><CR>
 " NERDTree toggle
 map <leader>n :NERDTreeToggle<CR>
 
-" Cycle through buffers
+" Cycle through tabs
 map <C-l> :tabnext<CR>
 map <C-h> :tabprevious<CR>
 

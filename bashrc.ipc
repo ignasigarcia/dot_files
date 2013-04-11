@@ -219,3 +219,6 @@ function svnup()
           svn up ~aluneburg/bin/exemplarOverrides -p ${PWD##*/}
 }
 
+function behat-tr {
+  phing test:behat-frontend -Dtest.environment=${1} -Dtest.behat.feature=${2}
+}
