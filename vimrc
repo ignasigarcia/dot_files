@@ -101,7 +101,6 @@ colorscheme zenburn
 set background=light
 
 "
-"
 " MAPPINGS
 "
 " Set the <Leader> for combo commands
@@ -135,6 +134,10 @@ let g:ackprg="ack -H --nocolor --nogroup --column"
 " Ack search term
 nmap <leader>f :Ack <cword><CR>
 
+" Run phpunit
+command PHPUnit execute "!phpunit"
+map <leader>ut :PHPUnit<CR>
+
 " NERDTree toggle
 map <leader>n :NERDTreeToggle<CR>
 
@@ -149,10 +152,6 @@ autocmd FileType php vnoremap <C-o> :call PhpDocRange()<CR>
 
 set backspace=2
 
-" Indent
-set smartindent
-set autoindent
-
 " Adds Sass support for OS X
 au BufRead,BufNewFile *.scss set filetype=scss
 
@@ -166,3 +165,7 @@ map <leader>t :Tlist<CR>
 " Run current php file
 command PHPExecute execute "!php %"
 map <leader>r :PHPExecute<CR>
+
+" Indent
+set smartindent
+set autoindent
