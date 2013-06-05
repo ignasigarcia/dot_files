@@ -135,8 +135,7 @@ let g:ackprg="ack -H --nocolor --nogroup --column"
 nmap <leader>f :Ack <cword><CR>
 
 " Run phpunit
-command PHPUnit execute "!phpunit"
-map <leader>ut :PHPUnit<CR>
+map <leader>ut :w<CR>:!phpunit<CR>
 
 " NERDTree toggle
 map <leader>n :NERDTreeToggle<CR>
