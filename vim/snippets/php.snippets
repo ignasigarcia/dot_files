@@ -211,3 +211,8 @@ snippet fun
 # $... = array (...)
 snippet array
 	$${1:arrayName} = array('${2}' => ${3});${4}
+snippet test
+	${1:public }function ${2:method}_${3:context}_${4:returns}()
+	{
+		$this->assert${5:}(${6:});
+	}
