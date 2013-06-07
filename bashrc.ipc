@@ -222,3 +222,5 @@ function svnup()
 function behat-tr {
   phing test:behat-frontend -Dtest.environment=${1} -Dtest.behat.feature=${2}
 }
+
+/bin/zsh
