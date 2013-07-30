@@ -69,7 +69,7 @@ function set_aliases ()
   alias slog="svn log | less"
 
   # ACK
-  alias ack="/home/igarcia/bin/ack --pager='less -R'"
+  alias ack="ack --pager='less -R'"
 	alias fack="ack -i '(function $@|class $@)' --php"
 
 	# LISTS

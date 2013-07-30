@@ -154,8 +154,8 @@ set backspace=2
 " Adds Sass support for OS X
 au BufRead,BufNewFile *.scss set filetype=scss
 
-" Disable Syntastic by default
-autocmd VimEnter * SyntasticToggleMode
+" Enable Syntastic check just for PHP errors
+let g:syntastic_php_checkers=['php']
 
 " TagLists plugin
 let Tlist_Use_Right_Window = 1
