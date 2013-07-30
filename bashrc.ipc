@@ -84,6 +84,7 @@ function set_aliases ()
 
 	# DIRECTORIES
 	alias pdev="cd /sites/personaldev/igarcia"
+	alias dev="cd /nfs/personaldev/vagrant"
 
 	# SCRIPTS
 	alias search2sync='php plugins/pluginSearch2Lib/batch/sync.php'
