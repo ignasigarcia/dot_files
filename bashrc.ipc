@@ -80,7 +80,7 @@ function set_aliases ()
 
 	# VIM
 	alias vim="vim -T dtterm"
-	alias vimdebug="/usb/bin/vim -T dtterm"
+	alias vimdebug="/usr/bin/vim -T dtterm"
   alias generate_tags="touch tags && rm tags && ctags -R --languages=php ."
 
 	# DIRECTORIES
