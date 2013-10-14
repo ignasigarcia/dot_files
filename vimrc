@@ -18,6 +18,15 @@ Bundle 'joonty/vdebug.git'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'jistr/vim-nerdtree-tabs'
+Bundle 'mileszs/ack.vim'
+Bundle 'corntrace/bufexplorer'
+Bundle 'tsaleh/vim-matchit'
+Bundle 'bthemad/php-doc.vim'
+Bundle "MarcWeber/vim-addon-mw-utils"
+Bundle "tomtom/tlib_vim"
+Bundle "garbas/vim-snipmate"
+Bundle "honza/vim-snippets"
+Bundle "vim-scripts/taglist.vim"
 
 " Vundle end
 
@@ -155,6 +164,8 @@ map <C-h> :tabprevious<CR>
 autocmd FileType php inoremap <C-o> <ESC>:call PhpDocSingle()<CR>i
 autocmd FileType php nnoremap <C-o> :call PhpDocSingle()<CR>
 autocmd FileType php vnoremap <C-o> :call PhpDocRange()<CR> 
+
+let g:pdv_cfg_Author='Ignacio Garcia Font'
 
 set backspace=2
 
