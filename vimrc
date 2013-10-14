@@ -27,6 +27,8 @@ Bundle "tomtom/tlib_vim"
 Bundle "garbas/vim-snipmate"
 Bundle "honza/vim-snippets"
 Bundle "vim-scripts/taglist.vim"
+Bundle "flazz/vim-colorschemes"
+Bundle "kien/ctrlp.vim"
 
 " Vundle end
 
