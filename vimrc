@@ -15,6 +15,9 @@ Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-surround'
 Bundle 'scrooloose/syntastic'
 Bundle 'joonty/vdebug.git'
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'jistr/vim-nerdtree-tabs'
 
 " Vundle end
 
@@ -140,6 +143,9 @@ map <leader>ut :w<CR>:!phpunit<CR>
 
 " NERDTree toggle
 map <leader>n :NERDTreeToggle<CR>
+
+" Always open Nerdtree
+autocmd VimEnter * :NERDTreeTabsToggle
 
 " Cycle through tabs
 map <C-l> :tabnext<CR>

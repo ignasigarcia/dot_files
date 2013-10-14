@@ -92,6 +92,12 @@ function set_aliases ()
 
 	# SYMFONY
 	alias sf='./symfony'
+
+  # SYMFONY 2
+  alias symfony2cc='sudo su apache -c '\''rm -vrf app/cache/* app/logs/*'\'' && rm -vrf app/cache/* app/logs/* && chmod 777 app/cache app/logs'
+
+  # GIT
+  alias lg="git log --graph --abbrev-commit --decorate --date=relative --all"
 }
 
 SVN="svn://subversion/symfony/"
