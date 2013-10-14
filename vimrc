@@ -151,10 +151,7 @@ nmap <leader>f :Ack <cword><CR>
 map <leader>ut :w<CR>:!phpunit<CR>
 
 " NERDTree toggle
-map <leader>n :NERDTreeToggle<CR>
-
-" Always open Nerdtree
-autocmd VimEnter * :NERDTreeTabsToggle
+map <Leader>n <plug>NERDTreeTabsToggle<CR>
 
 " Cycle through tabs
 map <C-l> :tabnext<CR>
@@ -165,6 +162,7 @@ autocmd FileType php inoremap <C-o> <ESC>:call PhpDocSingle()<CR>i
 autocmd FileType php nnoremap <C-o> :call PhpDocSingle()<CR>
 autocmd FileType php vnoremap <C-o> :call PhpDocRange()<CR> 
 
+" Author for PHP doc
 let g:pdv_cfg_Author='Ignacio Garcia Font'
 
 set backspace=2
