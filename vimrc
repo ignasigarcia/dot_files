@@ -29,6 +29,7 @@ Bundle "honza/vim-snippets"
 Bundle "vim-scripts/taglist.vim"
 Bundle "flazz/vim-colorschemes"
 Bundle "kien/ctrlp.vim"
+Bundle "ervandew/supertab"
 
 " Vundle end
 
