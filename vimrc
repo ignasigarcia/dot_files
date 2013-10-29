@@ -30,6 +30,7 @@ Bundle "vim-scripts/taglist.vim"
 Bundle "flazz/vim-colorschemes"
 Bundle "kien/ctrlp.vim"
 Bundle "ervandew/supertab"
+Bundle "stephpy/vim-php-cs-fixer"
 
 " Vundle end
 
@@ -70,9 +71,9 @@ set nrformats=octal,hex,alpha
 set ruler
 
 " Use 2 spaces for tab (ideal for yaml files)
-set softtabstop=2
-set shiftwidth=2
-set tabstop=2
+set softtabstop=4
+set shiftwidth=4
+set tabstop=4
 set expandtab
 
 " Show (partial) commands (or size of selection in Visual mode) in the status line
@@ -187,3 +188,7 @@ map <leader>r :PHPExecute<CR>
 " Indent
 set smartindent
 set autoindent
+
+" PHP cs fixer
+nnoremap <silent><leader>pcd :call PhpCsFixerFixDirectory()<CR>
+nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>

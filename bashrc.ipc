@@ -5,6 +5,10 @@ export EDITOR=vim
 export SVN_EDITOR=/usr/bin/vim
 export GIT_SSL_NO_VERIFY=true
 
+if [ -f ~/dot_files/git-completion.bash ]; then
+    . ~/dot_files/git-completion.bash
+fi
+
 function set_bashrc_version ()
 {
 	revision='$Revision: 1.28 $'
