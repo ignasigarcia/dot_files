@@ -31,6 +31,7 @@ Bundle "flazz/vim-colorschemes"
 Bundle "kien/ctrlp.vim"
 Bundle "ervandew/supertab"
 Bundle "stephpy/vim-php-cs-fixer"
+Bundle "Raimondi/delimitMate"
 
 " Vundle end
 
