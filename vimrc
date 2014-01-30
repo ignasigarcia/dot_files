@@ -26,12 +26,10 @@ Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "tomtom/tlib_vim"
 Bundle "garbas/vim-snipmate"
 Bundle "honza/vim-snippets"
-Bundle "vim-scripts/taglist.vim"
 Bundle "flazz/vim-colorschemes"
 Bundle "kien/ctrlp.vim"
 Bundle "ervandew/supertab"
 Bundle "stephpy/vim-php-cs-fixer"
-Bundle "Raimondi/delimitMate"
 
 " Vundle end
 
@@ -127,11 +125,11 @@ let mapleader = ","
 " save changes
 map <leader>w :w<CR>
 
+" quit
+map <leader>q :q<CR>
+
 " save changes and clean symfony cache
 map <leader>sc :w<CR>:!./symfony cc<CR><CR>
-
-" map ,f to display all lines with keyword under cursor and ask which one to jump to
-"nmap <leader>f [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 
 " page down with <Space>
 nmap <Space> <PageDown>
@@ -140,17 +138,15 @@ nmap <Space> <PageDown>
 vnoremap < <gv
 vnoremap > >gv 
 
-" Open tags in a new tab
-map <leader>d :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-
-"Opens tag in vertical split
-map <leader>ds :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+" Opens tag or list of tags in a new tab
+nnoremap <C-]> :tabnew %<CR>g<C-]>
+vnoremap <C-]> <Esc>:tabnew %<CR>gvg<C-]>
 
 " Setup ack
 let g:ackprg="ack -H --nocolor --nogroup --column"
 
 " Ack search term
-nmap <leader>f :Ack <cword><CR>
+nmap <leader>f :Ack! <cword><CR>
 
 " Run phpunit
 map <leader>ut :w<CR>:!phpunit<CR>
@@ -162,7 +158,7 @@ map <Leader>n <plug>NERDTreeTabsToggle<CR>
 map <C-l> :tabnext<CR>
 map <C-h> :tabprevious<CR>
 
-" PHP documenter script bound to Control-P
+" PHP documenter
 autocmd FileType php inoremap <C-o> <ESC>:call PhpDocSingle()<CR>i
 autocmd FileType php nnoremap <C-o> :call PhpDocSingle()<CR>
 autocmd FileType php vnoremap <C-o> :call PhpDocRange()<CR> 
@@ -177,14 +173,6 @@ au BufRead,BufNewFile *.scss set filetype=scss
 
 " Enable Syntastic check just for PHP errors
 let g:syntastic_php_checkers=['php']
-
-" TagLists plugin
-let Tlist_Use_Right_Window = 1
-map <leader>t :Tlist<CR>
-
-" Run current php file
-command PHPExecute execute "!php %"
-map <leader>r :PHPExecute<CR>
 
 " Indent
 set smartindent
