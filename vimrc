@@ -14,14 +14,11 @@ Bundle 'gmarik/vundle'
 " original repos on github
 Bundle 'tpope/vim-surround'
 Bundle 'scrooloose/syntastic'
-Bundle 'joonty/vdebug.git'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'mileszs/ack.vim'
-Bundle 'corntrace/bufexplorer'
 Bundle 'tsaleh/vim-matchit'
-Bundle 'bthemad/php-doc.vim'
 Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "tomtom/tlib_vim"
 Bundle "garbas/vim-snipmate"
@@ -30,6 +27,7 @@ Bundle "flazz/vim-colorschemes"
 Bundle "kien/ctrlp.vim"
 Bundle "ervandew/supertab"
 Bundle "stephpy/vim-php-cs-fixer"
+Bundle "spf13/PIV"
 
 " Vundle end
 
@@ -158,14 +156,6 @@ map <Leader>n <plug>NERDTreeTabsToggle<CR>
 map <C-l> :tabnext<CR>
 map <C-h> :tabprevious<CR>
 
-" PHP documenter
-autocmd FileType php inoremap <C-o> <ESC>:call PhpDocSingle()<CR>i
-autocmd FileType php nnoremap <C-o> :call PhpDocSingle()<CR>
-autocmd FileType php vnoremap <C-o> :call PhpDocRange()<CR> 
-
-" Author for PHP doc
-let g:pdv_cfg_Author='Ignacio Garcia Font'
-
 set backspace=2
 
 " Adds Sass support for OS X
@@ -181,3 +171,6 @@ set autoindent
 " PHP cs fixer
 nnoremap <silent><leader>pcd :call PhpCsFixerFixDirectory()<CR>
 nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>
+
+" Disable auto-folding
+let g:DisableAutoPHPFolding=1
