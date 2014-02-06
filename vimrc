@@ -5,13 +5,8 @@ filetype off                   " required!
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-" let Vundle manage Vundle
-" required! 
 Bundle 'gmarik/vundle'
 
-" My Bundles here:
-"
-" original repos on github
 Bundle 'tpope/vim-surround'
 Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdtree'
@@ -28,103 +23,78 @@ Bundle "kien/ctrlp.vim"
 Bundle "ervandew/supertab"
 Bundle "stephpy/vim-php-cs-fixer"
 Bundle "spf13/PIV"
+Bundle "bling/vim-bufferline"
 
-" Vundle end
-
-" Turn syntax highlighting on
+" General settings
 syntax on
 
 filetype plugin indent on
 filetype plugin on
 
-" Write contents of the file, if it has been modified, on buffer exit
-set autowrite
-
-" Use UTF-8 as the default buffer encoding
+set autowrite                           " Writes on buffer exit
 set enc=utf-8
- 
-" Remember up to 100 'colon' commmands and search patterns
 set history=100
+set number
+set ruler
+set laststatus=2                        " Always show status
+set nrformats=octal,hex,alpha           " Increment octal, hex and alpha values with ctrl-x/ctrl-a
+set showcmd                             " Show (partial) commands (or size of selection in Visual mode) in the status line
+set showmatch                           " When a bracket is inserted, briefly jump to a matching one
+set wildmenu
+set wildmode=list:longest,full          " On CMD, first tab shows first result, second tab all
+set nofoldenable
+set hidden
+set backspace=2                         " Enables Backspace
 
-" Enable incremental search
+" search
 set incsearch
-"
-" Highlight results of a search
 set hlsearch
-
-" Case insensitive and smart case search
 set ignorecase
 
-" Show line number
-set number
-
-" Always show status line, even for one window
-set laststatus=2
-
-" Enable CTRL-A/CTRL-X to work on octal and hex numbers, as well as characters
-set nrformats=octal,hex,alpha
-
-" Show line, column number, and relative position within a file in the status line
-set ruler
-
-" Use 2 spaces for tab (ideal for yaml files)
+" Spaces and tabs
 set softtabstop=4
 set shiftwidth=4
 set tabstop=4
 set expandtab
-
-" Show (partial) commands (or size of selection in Visual mode) in the status line
-set showcmd
-
-" When a bracket is inserted, briefly jump to a matching one
-set showmatch
-
-" Remember things between sessions
 "
-" '20  - remember marks for 20 previous files
-" \"50 - save 50 lines for each register
-" :20  - remember 20 items in command-line history 
-" %    - remember the buffer list (if vim started without a file arg)
-" n    - set name of viminfo file
-set viminfo='20,\"50,:20,%,n~/.viminfo
+" Indent
+set smartindent
+set autoindent
 
-" Use menu to show command-line completion (in 'full' case)
-set wildmenu
-
-" Set command-line completion mode:
-"   - on first <Tab>, when more than one match, list all matches and complete
-"     the longest common  string
-"   - on second <Tab>, complete the next full match and show menu
-set wildmode=list:longest,full
-
-" Set terminal mode for mouse reporting in iTerm2
+" Terminal mode and reporting
 set ttym=xterm2
 set term=xterm
-
-" Mouse reporting
 set mouse=a
 
-" Go back to the position the cursor was on the last time this file was edited
-au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")|execute("normal `\"")|endif
+" Buffers
+au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")|execute("normal `\"")|endif     " Go back to the position the cursor was on the last time this file was edited
+au BufRead,BufNewFile *.scss set filetype=scss                                                  " Sass file support
 
-" disable folding
-set nofoldenable
+" Bufferline
+let g:bufferline_show_bufnr = 0
 
-" colors
+" Syntastic
+let g:syntastic_php_checkers=['php']
+let g:syntastic_javascript_checkers = ['jslint']
+
+" PIV
+let g:DisableAutoPHPFolding=1
+
+" Ack.vim
+let g:ackprg="ack -H --nocolor --nogroup --column"
+
 colorscheme zenburn
 set background=light
 
-"
-" MAPPINGS
-"
-" Set the <Leader> for combo commands
 let mapleader = ","
 
-" save changes
+" Mappings
+
+" save buffer
 map <leader>w :w<CR>
 
-" quit
-map <leader>q :q<CR>
+" Delete buffer
+map <leader>q :bd<CR>
 
 " save changes and clean symfony cache
 map <leader>sc :w<CR>:!./symfony cc<CR><CR>
@@ -136,13 +106,6 @@ nmap <Space> <PageDown>
 vnoremap < <gv
 vnoremap > >gv 
 
-" Opens tag or list of tags in a new tab
-nnoremap <C-]> :tabnew %<CR>g<C-]>
-vnoremap <C-]> <Esc>:tabnew %<CR>gvg<C-]>
-
-" Setup ack
-let g:ackprg="ack -H --nocolor --nogroup --column"
-
 " Ack search term
 nmap <leader>f :Ack! <cword><CR>
 
@@ -152,25 +115,20 @@ map <leader>ut :w<CR>:!phpunit<CR>
 " NERDTree toggle
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
 
-" Cycle through tabs and windows
-map <C-l> :tabnext<CR>
-map <C-h> :tabprevious<CR>
+" Move to next window
 map <Tab> <C-W>w
-
-" Adds Sass support for OS X
-au BufRead,BufNewFile *.scss set filetype=scss
-
-" Enable Syntastic check just for PHP errors
-let g:syntastic_php_checkers=['php']
-let g:syntastic_javascript_checkers = ['jslint']
-
-" Indent
-set smartindent
-set autoindent
 
 " PHP cs fixer
 nnoremap <silent><leader>pcd :call PhpCsFixerFixDirectory()<CR>
 nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>
 
-" Disable auto-folding
-let g:DisableAutoPHPFolding=1
+" Search buffers
+map <leader>b :CtrlPBuffer<CR>
+
+" Cycle through buffers
+map <C-l> :bn<CR>
+map <C-h> :bp<CR>
+
+" Tags
+nnoremap <C-]> g<C-]>
+vnoremap <C-]> gvg<C-]>
