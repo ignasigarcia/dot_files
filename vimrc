@@ -152,17 +152,17 @@ map <leader>ut :w<CR>:!phpunit<CR>
 " NERDTree toggle
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
 
-" Cycle through tabs
+" Cycle through tabs and windows
 map <C-l> :tabnext<CR>
 map <C-h> :tabprevious<CR>
-
-set backspace=2
+map <Tab> <C-W>w
 
 " Adds Sass support for OS X
 au BufRead,BufNewFile *.scss set filetype=scss
 
 " Enable Syntastic check just for PHP errors
 let g:syntastic_php_checkers=['php']
+let g:syntastic_javascript_checkers = ['jslint']
 
 " Indent
 set smartindent
