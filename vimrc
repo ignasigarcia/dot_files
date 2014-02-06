@@ -45,6 +45,7 @@ set wildmode=list:longest,full          " On CMD, first tab shows first result, 
 set nofoldenable
 set hidden
 set backspace=2                         " Enables Backspace
+set completeopt-=preview                " Disables preview window after autocomplete
 
 " search
 set incsearch
