@@ -24,6 +24,7 @@ Bundle "ervandew/supertab"
 Bundle "stephpy/vim-php-cs-fixer"
 Bundle "spf13/PIV"
 Bundle "bling/vim-bufferline"
+Bundle "godlygeek/tabular"
 
 " General settings
 syntax on
@@ -53,9 +54,9 @@ set hlsearch
 set ignorecase
 
 " Spaces and tabs
-set softtabstop=4
-set shiftwidth=4
-set tabstop=4
+set softtabstop=2
+set shiftwidth=2
+set tabstop=2
 set expandtab
 "
 " Indent
@@ -133,3 +134,10 @@ map <C-h> :bp<CR>
 " Tags
 nnoremap <C-]> g<C-]>
 vnoremap <C-]> gvg<C-]>
+
+" Tabularize
+nmap <Leader>a= :Tabularize /=<CR>
+vmap <Leader>a= :Tabularize /=<CR>
+nmap <Leader>a: :Tabularize /:\zs<CR>
+vmap <Leader>a: :Tabularize /:\zs<CR>
+
