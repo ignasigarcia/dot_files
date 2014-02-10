@@ -24,6 +24,7 @@ Bundle "ervandew/supertab"
 Bundle "stephpy/vim-php-cs-fixer"
 Bundle "spf13/PIV"
 Bundle "bling/vim-bufferline"
+Bundle "moll/vim-bbye"
 
 " General settings
 syntax on
@@ -98,7 +99,7 @@ let mapleader = ","
 map <leader>w :w<CR>
 
 " Delete buffer
-map <leader>q :bd<CR>
+map <leader>q :Bdelete<CR>
 
 " save changes and clean symfony cache
 map <leader>sc :w<CR>:!./symfony cc<CR><CR>
