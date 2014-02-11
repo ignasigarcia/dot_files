@@ -11,13 +11,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/nerdcommenter'
-Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'mileszs/ack.vim'
-Bundle 'tsaleh/vim-matchit'
-Bundle "MarcWeber/vim-addon-mw-utils"
-Bundle "tomtom/tlib_vim"
-Bundle "garbas/vim-snipmate"
-Bundle "honza/vim-snippets"
 Bundle "flazz/vim-colorschemes"
 Bundle "kien/ctrlp.vim"
 Bundle "ervandew/supertab"
@@ -26,12 +20,16 @@ Bundle "spf13/PIV"
 Bundle "bling/vim-bufferline"
 Bundle "moll/vim-bbye"
 Bundle "godlygeek/tabular"
+Bundle "MarcWeber/vim-addon-mw-utils"
+Bundle "tomtom/tlib_vim"
+Bundle "garbas/vim-snipmate"
+Bundle "honza/vim-snippets"
+Bundle "tsaleh/vim-matchit"
 
 " General settings
 syntax on
 
 filetype plugin indent on
-filetype plugin on
 
 set autowrite                           " Writes on buffer exit
 set enc=utf-8
@@ -59,7 +57,7 @@ set softtabstop=2
 set shiftwidth=2
 set tabstop=2
 set expandtab
-"
+
 " Indent
 set smartindent
 set autoindent
@@ -88,9 +86,6 @@ let g:ackprg="ack -H --nocolor --nogroup --column"
 
 colorscheme zenburn
 set background=light
-
-" Set paste here because some plugin messes with it
-set paste
 
 let mapleader = ","
 
@@ -165,3 +160,4 @@ let g:ctrlp_user_command = {
     \ },
     \ 'fallback': s:ctrlp_fallback
 \ }
+
