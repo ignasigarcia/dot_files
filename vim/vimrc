@@ -1,0 +1,68 @@
+syntax on
+filetype plugin indent on
+set incsearch
+set scrolloff=5
+set display=truncate
+set mouse=a
+
+" No swap files (no more orphaned .swp after killing a tmux pane);
+" use persistent, cross-session undo history instead.
+set noswapfile
+set undofile
+set undodir=~/.vim/undo//
+
+" Leader is space
+nnoremap <SPACE> <Nop>
+let mapleader = " "
+
+map <leader>w :w<CR>
+
+" Plugins
+call plug#begin()
+
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'jeetsukumaran/vim-buffergator'
+Plug 'flazz/vim-colorschemes'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+call plug#end()
+
+colorscheme PaperColor
+
+" CTRL-P
+let g:ctrlp_map = ''
+nnoremap <Leader>f :CtrlP<CR>
+
+" NERDTree
+nnoremap <leader>1 :NERDTreeToggle<CR>
+set fillchars-=vert:\| fillchars+=vert:\│
+
+" ============ Coc ============
+" Recommended baseline (defaults make diagnostics feel sluggish)
+set hidden                  " switch buffers without saving (needed for cross-file rename)
+set nobackup nowritebackup  " some LSP servers choke on backup files
+set updatetime=300          " faster diagnostics/highlights (default is 4000ms)
+set signcolumn=yes          " keep the gutter from shifting when errors appear
+
+" Navigation
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Hover docs on K
+nnoremap <silent> K :call CocActionAsync('doHover')<CR>
+
+" Rename / code action (leader-prefixed so we don't clobber `r`)
+nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>ca <Plug>(coc-codeaction-cursor)
+
+" Jump between diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Completion: Tab/S-Tab navigate the popup, Enter confirms
+inoremap <silent><expr> <TAB> coc#pum#visible() ? coc#pum#next(1) : "\<TAB>"
+inoremap <silent><expr> <S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"

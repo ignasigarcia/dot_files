@@ -1,1 +1,13 @@
-vim/bundle/*
+.DS_Store
+
+# Vim generated state and installed plugins
+vim/autoload/
+vim/plugged/
+vim/undo/
+*.swp
+*.swo
+
+# tmux installed plugins and restored sessions
+tmux/plugins/
+tmux/resurrect/
+

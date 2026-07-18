@@ -1,0 +1,40 @@
+# Ghostty configuration
+# Reload after editing with: Cmd+Shift+, (or restart Ghostty)
+#
+# This is the single source of truth for Ghostty settings.
+# (Previously some settings lived in the macOS app's config file at
+#  ~/Library/Application Support/com.mitchellh.ghostty/config.ghostty —
+#  they have been merged here.)
+
+# --- Fonts ---
+font-family = 'IBM Plex Sans'
+font-size = 15
+font-thicken = true
+font-thicken-strength = 60
+
+# --- Appearance ---
+theme = light:Alabaster,dark:Ayu Mirage
+unfocused-split-opacity = 1
+
+# --- Keybinds ---
+keybind = cmd+grave_accent=toggle_quick_terminal
+
+# Keyboard scrolling (no Fn key needed)
+# Cmd+Arrow: scroll one line at a time
+keybind = super+up=scroll_page_lines:-1
+keybind = super+down=scroll_page_lines:1
+# Cmd+Shift+Arrow: scroll half a page
+keybind = super+shift+up=scroll_page_fractional:-0.5
+keybind = super+shift+down=scroll_page_fractional:0.5
+
+# tmux window switching (Cmd+Opt+Left/Right)
+# Emits tmux prefix (Ctrl-B = \x02) + p/n, replaying tmux's built-in
+# previous-window / next-window. It's consumed by the tmux prefix, so it
+# never reaches vim / Claude Code / Codex running inside the pane.
+# If you ever change your tmux prefix from C-b, update \x02 accordingly.
+keybind = cmd+opt+left=text:\x02p
+keybind = cmd+opt+right=text:\x02n
+
+# Built-in defaults already available (kept for reference):
+#   Cmd+PageUp / Cmd+PageDown  -> full page up/down
+#   Cmd+Home   / Cmd+End       -> jump to top/bottom
