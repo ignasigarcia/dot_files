@@ -28,7 +28,9 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
 
-colorscheme PaperColor
+if !empty(globpath(&runtimepath, 'colors/PaperColor.vim'))
+  colorscheme PaperColor
+endif
 
 " CTRL-P
 let g:ctrlp_map = ''

@@ -11,3 +11,5 @@ vim/undo/
 tmux/plugins/
 tmux/resurrect/
 
+# Local shell overrides may contain machine-specific values or secrets
+.zshrc.local

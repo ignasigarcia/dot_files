@@ -7,7 +7,7 @@
 #  they have been merged here.)
 
 # --- Fonts ---
-font-family = 'IBM Plex Sans'
+font-family = "JetBrains Mono"
 font-size = 15
 font-thicken = true
 font-thicken-strength = 60
@@ -15,6 +15,11 @@ font-thicken-strength = 60
 # --- Appearance ---
 theme = light:Alabaster,dark:Ayu Mirage
 unfocused-split-opacity = 1
+
+# Integrate tabs into the titlebar and hide the traffic-light buttons so the
+# only UI above the terminal is the compact tab row.
+macos-titlebar-style = tabs
+macos-window-buttons = hidden
 
 # --- Keybinds ---
 keybind = cmd+grave_accent=toggle_quick_terminal
