@@ -1,9 +1,30 @@
+set encoding=utf-8
+scriptencoding utf-8
+
 syntax on
 filetype plugin indent on
 set incsearch
+set ignorecase
 set scrolloff=5
 set display=truncate
 set mouse=a
+
+" Reload clean buffers when their files change outside Vim
+set autoread
+augroup auto_checktime
+  autocmd!
+  autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * checktime
+augroup END
+
+" Use full terminal colour and make side-by-side code diffs easier to scan
+if has('termguicolors')
+  set termguicolors
+endif
+set diffopt+=vertical,algorithm:histogram,linematch:60
+
+" Always show hidden files in Vim's built-in file browser
+let g:netrw_hide = 0
+let g:netrw_list_hide = ''
 
 " No swap files (no more orphaned .swp after killing a tmux pane);
 " use persistent, cross-session undo history instead.
@@ -20,25 +41,60 @@ map <leader>w :w<CR>
 " Plugins
 call plug#begin()
 
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'flazz/vim-colorschemes'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 
 call plug#end()
 
-if !empty(globpath(&runtimepath, 'colors/PaperColor.vim'))
-  colorscheme PaperColor
+set background=dark
+if !empty(globpath(&runtimepath, 'colors/gruvbox.vim'))
+  colorscheme gruvbox
 endif
 
-" CTRL-P
-let g:ctrlp_map = ''
-nnoremap <Leader>f :CtrlP<CR>
+" Fast file and code search
+" Match fzf's controls to the active Vim color scheme.
+let g:fzf_colors =
+      \ { 'fg':      ['fg', 'Normal'],
+      \   'bg':      ['bg', 'Normal'],
+      \   'query':   ['fg', 'Normal'],
+      \   'hl':      ['fg', 'Comment'],
+      \   'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+      \   'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+      \   'hl+':     ['fg', 'Statement'],
+      \   'info':    ['fg', 'PreProc'],
+      \   'border':  ['fg', 'Ignore'],
+      \   'prompt':  ['fg', 'Conditional'],
+      \   'pointer': ['fg', 'Exception'],
+      \   'marker':  ['fg', 'Keyword'],
+      \   'spinner': ['fg', 'Label'],
+      \   'header':  ['fg', 'Comment'] }
+
+command! -bang -nargs=* Rgi call fzf#vim#grep(
+      \ 'rg --column --line-number --no-heading --color=always --ignore-case -- ' . fzf#shellescape(<q-args>),
+      \ fzf#vim#with_preview(),
+      \ <bang>0)
+nnoremap <Leader>f :Files<CR>
+nnoremap <Leader>/ :Rgi<Space>
 
 " NERDTree
+let g:NERDTreeShowHidden = 1
 nnoremap <leader>1 :NERDTreeToggle<CR>
 set fillchars-=vert:\| fillchars+=vert:\│
+
+" Git review
+nnoremap <leader>gs :Git<CR>
+nnoremap <leader>gd :Gdiffsplit<CR>
+nnoremap <leader>gb :Git blame<CR>
+
+" GitGutter uses ]c/[c for next/previous hunk and provides these mappings:
+" <leader>hp preview, <leader>hs stage, <leader>hu undo.
+let g:gitgutter_preview_win_floating = 1
 
 " ============ Coc ============
 " Recommended baseline (defaults make diagnostics feel sluggish)

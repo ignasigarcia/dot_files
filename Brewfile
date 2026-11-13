@@ -1,7 +1,10 @@
 # Command-line tools
 brew "gh"
+brew "git-delta"
 brew "jira-cli"
+brew "lazygit"
 brew "pgcli"
+brew "ripgrep"
 brew "tmux"
 brew "vim"
 

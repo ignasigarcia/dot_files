@@ -1,0 +1,94 @@
+# Starter Codex config. bootstrap.sh copies it to ~/.codex/config.toml on a fresh
+# Mac only when that file doesn't exist yet. It is not linked: Codex keeps editing
+# its own copy (trusted folders, app paths, hook hashes, plugin state), and those
+# machine-specific details don't belong in this public repository.
+
+personality = "pragmatic"
+model = "gpt-6-astra"
+model_reasoning_effort = "high"
+service_tier = "default"
+approvals_reviewer = "auto_review"
+
+[tui]
+notifications = ["agent-turn-complete"]
+notification_method = "bel"
+notification_condition = "always"
+status_line = ["model-with-reasoning", "current-dir", "git-branch"]
+
+[features]
+js_repl = false
+memories = true
+chronicle = true
+
+[memories]
+generate_memories = true
+use_memories = true
+
+[desktop]
+appearanceLightCodeThemeId = "gruvbox"
+appearanceDarkCodeThemeId = "gruvbox"
+codeFontSize = 12
+pagesFontSize = 14
+pagesFullWidth = true
+defaultTerminalLocation = "right"
+reduced-motion-preference = "system"
+dock-icon-preference = "space-system"
+git-pull-request-merge-method = "squash"
+mac-menu-bar-enabled = false
+enabled-reasoning-efforts = ["low", "medium", "high", "xhigh", "ultra", "max"]
+realtimeVoiceScreenContextEnabled = true
+preventSleepWhileRunning = true
+conversationDetailMode = "STEPS_COMMANDS"
+external-agent-import-sync-enabled = false
+followUpQueueMode = "queue"
+
+[desktop.open-in-target-preferences]
+global = "zed"
+
+[desktop.appearanceLightChromeTheme]
+accent = "#458588"
+contrast = 45
+ink = "#3c3836"
+opaqueWindows = false
+surface = "#fbf1c7"
+
+[desktop.appearanceLightChromeTheme.fonts]
+ui = "Inter"
+
+[desktop.appearanceLightChromeTheme.semanticColors]
+diffAdded = "#3c3836"
+diffRemoved = "#cc241d"
+skill = "#b16286"
+
+[desktop.appearanceDarkChromeTheme]
+accent = "#458588"
+contrast = 60
+ink = "#ebdbb2"
+opaqueWindows = false
+surface = "#282828"
+
+[desktop.appearanceDarkChromeTheme.fonts]
+code = '"JetBrains Mono"'
+
+[desktop.appearanceDarkChromeTheme.semanticColors]
+diffAdded = "#ebdbb2"
+diffRemoved = "#cc241d"
+skill = "#b16286"
+
+# MCP servers. Tokens are never stored here: the Atlassian server reads its key
+# from the ATLASSIAN_ROVO_API_KEY environment variable; keep its value outside
+# this repository, for example in ~/.zshrc.local.
+[mcp_servers.openaiDeveloperDocs]
+url = "https://developers.openai.com/mcp"
+
+[mcp_servers.posthog]
+url = "https://mcp.posthog.com/mcp"
+
+[mcp_servers.aikido]
+command = "/opt/homebrew/bin/node"
+args = ["/opt/homebrew/lib/node_modules/npm/bin/npx-cli.js", "-y", "@aikidosec/mcp@latest"]
+startup_timeout_sec = 60.0
+
+[mcp_servers.atlassian-rovo-bitbucket]
+url = "https://mcp.atlassian.com/v1/mcp/authv2"
+bearer_token_env_var = "ATLASSIAN_ROVO_API_KEY"

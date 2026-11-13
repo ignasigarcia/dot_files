@@ -109,6 +109,22 @@ link_dotfiles() {
   backup_and_link "${REPO_DIR}/vim/vimrc" "${HOME}/.vimrc"
   backup_and_link "${REPO_DIR}/tmux/tmux.conf" "${HOME}/.tmux.conf"
   backup_and_link "${REPO_DIR}/ghostty/config" "${HOME}/.config/ghostty/config"
+  backup_and_link "${REPO_DIR}/lazygit/config.yml" "${HOME}/Library/Application Support/lazygit/config.yml"
+}
+
+# Codex keeps rewriting its config, so seed it once instead of linking it.
+install_codex_config() {
+  local target="${HOME}/.codex/config.toml"
+
+  if [[ -e "${target}" || -L "${target}" ]]; then
+    printf 'Keeping existing Codex config: %s\n' "${target}"
+    return
+  fi
+
+  mkdir -p "${HOME}/.codex"
+  cp "${REPO_DIR}/codex/config.toml" "${target}"
+  chmod 600 "${target}"
+  printf 'Installed starter Codex config: %s\n' "${target}"
 }
 
 link_agent_skills() {
@@ -171,6 +187,7 @@ main() {
   install_oh_my_zsh
   install_nvm_and_node
   link_dotfiles
+  install_codex_config
   link_agent_skills
   install_vim_plugins
   install_tmux_plugins

@@ -13,3 +13,6 @@ tmux/resurrect/
 
 # Local shell overrides may contain machine-specific values or secrets
 .zshrc.local
+
+# Codex writes backups next to its config; the live config lives in ~/.codex
+codex/*.bak

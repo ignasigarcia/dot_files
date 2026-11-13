@@ -1,0 +1,39 @@
+os:
+  editPreset: vim
+
+gui:
+  # Start with only the focused Files panel and its diff visible.
+  screenMode: half
+  enlargedSideViewLocation: left
+  showCommandLog: false
+  theme:
+    activeBorderColor:
+      - "#b8bb26"
+      - bold
+    inactiveBorderColor:
+      - "#928374"
+    searchingActiveBorderColor:
+      - "#83a598"
+      - bold
+    optionsTextColor:
+      - "#83a598"
+    selectedLineBgColor:
+      - "#3c3836"
+    inactiveViewSelectedLineBgColor:
+      - "#32302f"
+    cherryPickedCommitFgColor:
+      - "#83a598"
+    cherryPickedCommitBgColor:
+      - "#3c3836"
+    markedBaseCommitFgColor:
+      - "#fabd2f"
+    markedBaseCommitBgColor:
+      - "#3c3836"
+    unstagedChangesColor:
+      - "#fb4934"
+    defaultFgColor:
+      - "#ebdbb2"
+
+git:
+  pagers:
+    - pager: delta --dark --syntax-theme gruvbox-dark --paging=never --line-numbers

@@ -1,8 +1,9 @@
 # dot_files
 
 A repeatable macOS starter for a new laptop or desktop. It installs the core
-development tools and links the version-controlled shell, Vim, tmux, and Ghostty
-configuration into the home directory.
+development tools, links the version-controlled shell, Vim, tmux, Ghostty and
+lazygit configuration into the home directory, and seeds a starter Codex
+configuration.
 
 ## Quick start
 
@@ -27,6 +28,7 @@ Homebrew manages:
 
 - latest stable Vim
 - GitHub CLI (`gh`)
+- lazygit, git-delta and ripgrep
 - Jira CLI (`jira`)
 - pgcli
 - tmux
@@ -48,6 +50,10 @@ its bundled npm.
 - `vim/vimrc` -> `~/.vimrc`
 - `ghostty/config` -> `~/.config/ghostty/config`
 - `tmux/tmux.conf` -> `~/.tmux.conf`
+- `lazygit/config.yml` -> `~/Library/Application Support/lazygit/config.yml`
+- `codex/config.toml` is copied (not linked) to `~/.codex/config.toml` on a
+  fresh Mac. Codex keeps editing its own copy, and its trusted-folder list and
+  machine-specific state stay out of this repository.
 
 Vim plugins live under `~/.vim/plugged`, and tmux plugins live under
 `~/.tmux/plugins`. Both plugin managers are installed and initialized by the
