@@ -1,0 +1,4 @@
+interface:
+  display_name: "Tempo"
+  short_description: "Log, check or correct Tempo worklogs on Jira tickets"
+  default_prompt: "Use $tempo to log 45 minutes on GAI-657 for today."

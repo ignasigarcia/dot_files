@@ -1,0 +1,4 @@
+interface:
+  display_name: "AWS App Log Search"
+  short_description: "Search deployed app logs across AWS environments"
+  default_prompt: "Use $aws-search-app-logs to search application logs across development, staging, and production."

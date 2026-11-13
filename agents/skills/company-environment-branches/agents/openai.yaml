@@ -1,0 +1,4 @@
+interface:
+  display_name: "Company Environment Branches"
+  short_description: "Safely promote and sync environment branches"
+  default_prompt: "Use $company-environment-branches to manage this environment-branch PR safely."

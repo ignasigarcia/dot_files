@@ -75,5 +75,13 @@ Calendar once after installation. For Helium extension setup and the portable
 extension manifest, see
 [`helium/EXTENSIONS.md`](helium/EXTENSIONS.md).
 
-Codex and Claude Code skill sharing is intentionally not included yet; that will
-be designed separately.
+## Agent skills
+
+Codex and Claude Code share one set of skills and global instructions from
+[`agents/`](agents/README.md). The bootstrap links them into `~/.agents/skills`,
+`~/.claude/skills`, `~/.codex/AGENTS.md` and `~/.claude/CLAUDE.md`; rerun
+`./agents/link-skills.sh` after adding or installing a skill.
+
+Client-specific details stay out of this public repository, in
+`~/.config/agent-skills/`. Copy that folder and `~/.config/tempo/` from your
+previous machine before running the bootstrap.

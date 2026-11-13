@@ -1,0 +1,4 @@
+interface:
+  display_name: "Release to Environment"
+  short_description: "Promote, verify, deploy, and monitor releases"
+  default_prompt: "Use $release-to-environment to release the current changes to staging."

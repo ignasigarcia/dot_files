@@ -1,0 +1,4 @@
+interface:
+  display_name: "AWS Deployment Monitor"
+  short_description: "Verify pipelines, builds, migrations, and deploys"
+  default_prompt: "Use $aws-monitor-deployment to follow my active AWS release through build, migrations, and deployment."

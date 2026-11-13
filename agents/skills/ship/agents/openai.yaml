@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ship"
+  short_description: "Commit, push, wait for PR checks and merge (admin bypass if needed)"
+  default_prompt: "Use $ship to push this branch, wait for the PR checks and merge it."

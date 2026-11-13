@@ -111,6 +111,11 @@ link_dotfiles() {
   backup_and_link "${REPO_DIR}/ghostty/config" "${HOME}/.config/ghostty/config"
 }
 
+link_agent_skills() {
+  log "Linking shared Codex and Claude Code skills"
+  BACKUP_DIR="${BACKUP_DIR}" "${REPO_DIR}/agents/link-skills.sh"
+}
+
 install_vim_plugins() {
   local plug_path="${HOME}/.vim/autoload/plug.vim"
 
@@ -166,6 +171,7 @@ main() {
   install_oh_my_zsh
   install_nvm_and_node
   link_dotfiles
+  link_agent_skills
   install_vim_plugins
   install_tmux_plugins
   print_next_steps
