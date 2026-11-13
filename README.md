@@ -76,6 +76,17 @@ Client-specific details stay out of this public repository, in
 `~/.config/agent-skills/`. Copy that folder, `~/.config/tempo/` and
 `~/.aws/config` from your previous machine, then rerun `./agents/link-skills.sh`.
 
+## Apps built from source
+
+These aren't in Homebrew, so install them by hand after the bootstrap (they need
+Xcode):
+
+- **Memento Mori menu bar app**
+  ([ignasigarcia/memento-mori-menubar](https://github.com/ignasigarcia/memento-mori-menubar),
+  private): shows the weeks left in the menu bar and a life calendar when clicked.
+  Clone it, follow the build steps in its README, then set your birthday from the
+  menu bar icon. It turns on "Open at login" by itself on first launch.
+
 ## Manual onboarding
 
 Some tools need an interactive sign-in:
