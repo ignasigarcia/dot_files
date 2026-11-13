@@ -1,14 +1,28 @@
 #!/usr/bin/env bash
+# One command for a new machine:  git clone ... && ./bootstrap.sh
+#
+# macOS:  Homebrew tools and desktop apps, shell/editor configs, Codex and Claude
+#         Code CLIs, shared agent skills.
+# Linux:  headless setup. Missing basics from the system package manager, shell/editor
+#         configs, Codex and Claude Code CLIs, shared agent skills. No GUI apps.
+#
+# Safe to rerun: existing files are moved to ~/.dotfiles-backup/<timestamp>/.
 
 set -Eeuo pipefail
 
 readonly REPO_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 readonly BREWFILE="${REPO_DIR}/Brewfile"
-readonly NVM_VERSION="v0.40.6"
+readonly NVM_INSTALLER_VERSION="v0.40.6"
 readonly BACKUP_DIR="${HOME}/.dotfiles-backup/$(date +%Y%m%d-%H%M%S)"
+export BACKUP_DIR # agents/link-skills.sh saves replaced files to the same folder
+readonly OS="$(uname -s)"
 
 log() {
   printf '\n==> %s\n' "$1"
+}
+
+note() {
+  printf 'Note: %s\n' "$1"
 }
 
 fail() {
@@ -16,9 +30,22 @@ fail() {
   exit 1
 }
 
-require_macos() {
-  [[ "$(uname -s)" == "Darwin" ]] || fail "This bootstrap currently supports macOS only."
+is_mac() {
+  [[ "${OS}" == "Darwin" ]]
 }
+
+has() {
+  command -v "$1" >/dev/null 2>&1
+}
+
+check_platform() {
+  case "${OS}" in
+    Darwin | Linux) ;;
+    *) fail "Unsupported system: ${OS}. This bootstrap supports macOS and Linux." ;;
+  esac
+}
+
+# --- macOS ------------------------------------------------------------------
 
 require_command_line_tools() {
   if xcode-select -p >/dev/null 2>&1; then
@@ -31,7 +58,7 @@ require_command_line_tools() {
 }
 
 install_homebrew() {
-  if ! command -v brew >/dev/null 2>&1; then
+  if ! has brew; then
     log "Installing Homebrew"
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   fi
@@ -50,6 +77,59 @@ install_brew_bundle() {
   brew bundle --file="${BREWFILE}"
 }
 
+# --- Linux ------------------------------------------------------------------
+
+# Install only the missing basics, so reruns never ask for a password.
+install_linux_packages() {
+  local -a missing=()
+  local tool sudo=""
+
+  for tool in curl git vim tmux zsh python3 zstd; do
+    has "${tool}" || missing+=("${tool}")
+  done
+  # Node.js's official Linux builds need libatomic, which minimal images leave out.
+  ldconfig -p 2>/dev/null | grep -q 'libatomic\.so\.1' || missing+=(libatomic)
+  if [[ ${#missing[@]} -eq 0 ]]; then
+    log "System packages are already installed"
+    return
+  fi
+
+  if [[ "$(id -u)" -ne 0 ]]; then
+    has sudo || fail "Missing ${missing[*]} and sudo is unavailable. Install them, then rerun."
+    sudo="sudo"
+  fi
+
+  log "Installing system packages: ${missing[*]}"
+  if has apt-get; then
+    missing=("${missing[@]/#libatomic/libatomic1}")
+    ${sudo} apt-get update
+    ${sudo} env DEBIAN_FRONTEND=noninteractive apt-get install -y "${missing[@]}" ca-certificates
+  elif has dnf; then
+    ${sudo} dnf install -y "${missing[@]/#vim/vim-enhanced}"
+  else
+    fail "Missing ${missing[*]}. Install them with your package manager, then rerun."
+  fi
+}
+
+use_zsh_as_login_shell() {
+  local zsh_path
+  zsh_path="$(command -v zsh)"
+  if [[ "$(basename -- "${SHELL:-}")" == "zsh" ]]; then
+    return
+  fi
+
+  log "Making zsh the login shell"
+  if [[ "$(id -u)" -eq 0 ]]; then
+    chsh -s "${zsh_path}"
+  elif has sudo; then
+    sudo chsh -s "${zsh_path}" "$(id -un)"
+  else
+    chsh -s "${zsh_path}"
+  fi || note "Could not change the login shell. Run: chsh -s ${zsh_path}"
+}
+
+# --- Both -------------------------------------------------------------------
+
 install_oh_my_zsh() {
   if [[ -d "${HOME}/.oh-my-zsh" ]]; then
     log "Oh My Zsh is already installed"
@@ -66,20 +146,46 @@ install_nvm_and_node() {
   export NVM_DIR="${HOME}/.nvm"
 
   if [[ ! -s "${NVM_DIR}/nvm.sh" ]]; then
-    log "Installing nvm ${NVM_VERSION}"
-    curl -fsSL "https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_VERSION}/install.sh" |
+    log "Installing nvm ${NVM_INSTALLER_VERSION}"
+    curl -fsSL "https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_INSTALLER_VERSION}/install.sh" |
       PROFILE=/dev/null bash
   else
     log "nvm is already installed"
   fi
 
+  # nvm's scripts aren't written for strict mode, so relax it around them and
+  # check the result explicitly instead.
+  log "Installing the latest Node.js LTS release and npm"
+  set +eEuo pipefail
   # shellcheck source=/dev/null
   source "${NVM_DIR}/nvm.sh"
-
-  log "Installing the latest Node.js LTS release and npm"
   nvm install --lts --latest-npm
-  nvm alias default 'lts/*'
-  nvm use default
+  nvm alias default 'lts/*' >/dev/null
+  nvm use default >/dev/null
+  set -eEuo pipefail
+
+  node --version >/dev/null 2>&1 && npm --version >/dev/null 2>&1 ||
+    fail "Node.js was installed but doesn't run. Check its error with: node --version"
+  printf 'Using Node.js %s and npm %s\n' "$(node --version)" "$(npm --version)"
+}
+
+# The official cross-platform installers, so Mac and Linux get the same tools.
+install_agent_clis() {
+  export PATH="${HOME}/.local/bin:${PATH}"
+
+  if has claude; then
+    log "Claude Code is already installed"
+  else
+    log "Installing Claude Code"
+    curl -fsSL https://claude.ai/install.sh | bash
+  fi
+
+  if has codex; then
+    log "Codex CLI is already installed"
+  else
+    log "Installing the Codex CLI"
+    npm install -g @openai/codex
+  fi
 }
 
 backup_and_link() {
@@ -108,8 +214,11 @@ link_dotfiles() {
   backup_and_link "${REPO_DIR}/zsh/zshrc" "${HOME}/.zshrc"
   backup_and_link "${REPO_DIR}/vim/vimrc" "${HOME}/.vimrc"
   backup_and_link "${REPO_DIR}/tmux/tmux.conf" "${HOME}/.tmux.conf"
-  backup_and_link "${REPO_DIR}/ghostty/config" "${HOME}/.config/ghostty/config"
-  backup_and_link "${REPO_DIR}/lazygit/config.yml" "${HOME}/Library/Application Support/lazygit/config.yml"
+
+  if is_mac; then
+    backup_and_link "${REPO_DIR}/ghostty/config" "${HOME}/.config/ghostty/config"
+    backup_and_link "${REPO_DIR}/lazygit/config.yml" "${HOME}/Library/Application Support/lazygit/config.yml"
+  fi
 }
 
 # Codex keeps rewriting its config, so seed it once instead of linking it.
@@ -129,7 +238,7 @@ install_codex_config() {
 
 link_agent_skills() {
   log "Linking shared Codex and Claude Code skills"
-  BACKUP_DIR="${BACKUP_DIR}" "${REPO_DIR}/agents/link-skills.sh"
+  "${REPO_DIR}/agents/link-skills.sh"
 }
 
 install_vim_plugins() {
@@ -144,7 +253,12 @@ install_vim_plugins() {
   fi
 
   log "Installing Vim plugins"
-  vim -Nu "${HOME}/.vimrc" -n -es -i NONE '+PlugInstall --sync' '+qa'
+  # Headless Vim exits non-zero for harmless startup warnings (for example, a
+  # colour scheme that is only available once its plugin is installed).
+  vim -Nu "${HOME}/.vimrc" -n -es -i NONE '+PlugInstall --sync' '+qa' ||
+    note "Vim reported warnings while installing plugins."
+  [[ -n "$(ls -A "${HOME}/.vim/plugged" 2>/dev/null)" ]] ||
+    fail "Vim plugins were not installed. Open Vim and run :PlugInstall to see why."
 }
 
 install_tmux_plugins() {
@@ -160,19 +274,30 @@ install_tmux_plugins() {
 }
 
 print_next_steps() {
-  log "Starter setup complete"
+  log "Setup complete"
   cat <<'STEPS'
 
 Open a new terminal, then finish the sign-ins that cannot be automated:
 
-  gh auth login
-  jira init
+  claude                        # sign in to Claude Code
+  codex login                   # sign in to Codex
+  gh auth login                 # if gh is installed
+  aws sso login --profile grm   # if the AWS CLI is installed
 
-Also open 1Password, Docker Desktop, Helium, JetBrains Toolbox, WebStorm, Slack,
-Zoom, and Notion Calendar once to finish their onboarding. Enable the 1Password
-SSH agent after signing in; your private keys can then stay inside 1Password
-instead of being exported to disk.
+Private files never live in this public repository. Copy these from your previous
+machine if you need them: ~/.config/agent-skills/, ~/.config/tempo/ and
+~/.aws/config. Then rerun ./agents/link-skills.sh.
 STEPS
+
+  if is_mac; then
+    cat <<'STEPS'
+
+Also open 1Password, Docker Desktop, ChatGPT (Codex), Claude, Helium, JetBrains
+Toolbox, WebStorm, Slack, Zoom and Notion Calendar once to finish their
+onboarding. Enable the 1Password SSH agent after signing in, so your private
+keys can stay inside 1Password instead of being exported to disk.
+STEPS
+  fi
 
   if [[ -d "${BACKUP_DIR}" ]]; then
     printf '\nPrevious config files were saved in: %s\n' "${BACKUP_DIR}"
@@ -180,12 +305,20 @@ STEPS
 }
 
 main() {
-  require_macos
-  require_command_line_tools
-  install_homebrew
-  install_brew_bundle
+  check_platform
+
+  if is_mac; then
+    require_command_line_tools
+    install_homebrew
+    install_brew_bundle
+  else
+    install_linux_packages
+  fi
+
   install_oh_my_zsh
+  is_mac || use_zsh_as_login_shell
   install_nvm_and_node
+  install_agent_clis
   link_dotfiles
   install_codex_config
   link_agent_skills

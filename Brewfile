@@ -1,4 +1,5 @@
 # Command-line tools
+brew "awscli"
 brew "gh"
 brew "git-delta"
 brew "jira-cli"
@@ -7,6 +8,12 @@ brew "pgcli"
 brew "ripgrep"
 brew "tmux"
 brew "vim"
+brew "zstd"
+
+# AI desktop apps (the Codex app ships inside ChatGPT). bootstrap.sh installs the
+# Codex and Claude Code CLIs with their own cross-platform installers.
+cask "chatgpt"
+cask "claude"
 
 # Desktop applications
 cask "1password"

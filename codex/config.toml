@@ -85,8 +85,8 @@ url = "https://developers.openai.com/mcp"
 url = "https://mcp.posthog.com/mcp"
 
 [mcp_servers.aikido]
-command = "/opt/homebrew/bin/node"
-args = ["/opt/homebrew/lib/node_modules/npm/bin/npx-cli.js", "-y", "@aikidosec/mcp@latest"]
+command = "npx"
+args = ["-y", "@aikidosec/mcp@latest"]
 startup_timeout_sec = 60.0
 
 [mcp_servers.atlassian-rovo-bitbucket]
